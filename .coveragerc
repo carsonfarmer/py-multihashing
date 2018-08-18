@@ -1,0 +1,16 @@
+[paths]
+source =
+   src/multihashing
+   */site-packages/multihashing
+
+[run]
+branch = true
+source =
+    multihashing
+    tests
+parallel = true
+
+[report]
+show_missing = true
+precision = 2
+omit = *migrations*
