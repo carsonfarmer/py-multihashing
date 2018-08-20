@@ -1,5 +1,21 @@
-from typing import Union, Optional
-import hashlib
+from typing import Union
+from typing import Optional
+from typing import Any
+
+from Crypto.Hash import MD5
+from Crypto.Hash import SHA1
+from Crypto.Hash import SHA256
+from Crypto.Hash import SHA512
+from Crypto.Hash import SHA3_512
+from Crypto.Hash import SHA3_384
+from Crypto.Hash import SHA3_256
+from Crypto.Hash import SHA3_224
+from Crypto.Hash import SHAKE128
+from Crypto.Hash import SHAKE256
+from Crypto.Hash import keccak
+from Crypto.Hash import BLAKE2b
+from Crypto.Hash import BLAKE2s
+
 from functools import partial
 
 import multihash
@@ -10,6 +26,9 @@ __version__ = '0.1.0'
 def multihashing(buf: bytes, func: Union[str, int], length: Optional[int] = None) -> bytes:
     """
     Hash the given `buf` using the algorithm specified by `func`.
+
+    For extendable-output functions (XOF) such as SHAKE128 and SHAKE256, `length` is required.
+
     :param buf: The value to hash stored as a byte array.
     :param func: The algorithm to use.
     :param length: Optionally trim the result to this length.
@@ -24,6 +43,9 @@ def multihashing(buf: bytes, func: Union[str, int], length: Optional[int] = None
 def digest_bytes(buf: bytes, func: Union[str, int], length: Optional[int] = None) -> bytes:
     """
     Compute digest of given `buf` using the algorithm specified by `func`.
+
+    For extendable-output functions (XOF) such as SHAKE128 and SHAKE256, `length` is required.
+
     :param buf: The value to hash stored as a byte array.
     :param func: The algorithm to use.
     :param length: Optionally trim the result to this length.
@@ -32,13 +54,16 @@ def digest_bytes(buf: bytes, func: Union[str, int], length: Optional[int] = None
 
     hashed = create_hash(func)
     hashed.update(buf)
-    digest = hashed.digest()[:length]
-    return digest
+    try:
+        return hashed.read(length)
+    except AttributeError:
+        return hashed.digest()[:length]
 
 
-def create_hash(func: Union[str, int]) -> hashlib._hashlib.HASH:
+def create_hash(func: Union[str, int]) -> Any:
     """
     Check and return `hashlib` hash function corresponding to `func`.
+
     :param func: The algorithm to use.
     :return: The `hashlib` HASH subclass corresponding to `func`.
     """
@@ -52,19 +77,24 @@ def create_hash(func: Union[str, int]) -> hashlib._hashlib.HASH:
 # Mapping of multihash codes to their hashing functions.
 # TODO: Add Murmurhash3 functions, dbl-sha2-256, Keccak functions, and Skein functions
 functions = {
-  0x11: hashlib.sha1,       # sha1
-  0x12: hashlib.sha256,     # sha2-256
-  0x13: hashlib.sha512,     # sha2-512
-  0x14: hashlib.sha3_512,   # sha3-512
-  0x15: hashlib.sha3_384,   # sha3-384
-  0x16: hashlib.sha3_256,   # sha3-256
-  0x17: hashlib.sha3_224,   # sha3-224
-  0x18: hashlib.shake_128,  # shake-128
-  0x19: hashlib.shake_256   # shake-256
+    0xd5: MD5.new,        # md5
+    0x11: SHA1.new,       # sha1
+    0x12: SHA256.new,     # sha2-256
+    0x13: SHA512.new,     # sha2-512
+    0x14: SHA3_512.new,   # sha3-512
+    0x15: SHA3_384.new,   # sha3-384
+    0x16: SHA3_256.new,   # sha3-256
+    0x17: SHA3_224.new,   # sha3-224
+    0x18: SHAKE128.new,   # shake-128
+    0x19: SHAKE256.new,   # shake-256
+    0x1A: partial(keccak.new, digest_bits=224),  # keccak-224
+    0x1B: partial(keccak.new, digest_bits=256),  # keccak-256
+    0x1C: partial(keccak.new, digest_bits=384),  # keccak-384
+    0x1D: partial(keccak.new, digest_bits=512),  # keccak-512
 }
 
 # Add Blake2 functions (1-64 for blake2b and 1-32 for blake2s)
 for i in range(64):
-    functions[0xb201 + i] = partial(hashlib.blake2b, digest_size=i + 1)
+    functions[0xb201 + i] = partial(BLAKE2b.new, digest_bytes=i + 1)
     if i < 32:
-        functions[0xb241 + i] = partial(hashlib.blake2s, digest_size=i + 1)
+        functions[0xb241 + i] = partial(BLAKE2s.new, digest_bytes=i + 1)

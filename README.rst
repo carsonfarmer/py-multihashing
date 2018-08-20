@@ -38,15 +38,6 @@ Overview
 
 Use all the functions in multihash
 
-This module just makes working with multihashes a bit nicer.
-`py-multihash <//github.com/carsonfarmer/py-multihash>`_ is only for
-encoding/decoding multihashes, and does not depend on other libraries.
-This module will depend on various implementations for each hash.
-It currently uses `hashlib` exclusively, but this will likely change
-as new hashing functions are added (we're currently missing the
-MurmurHash3 functions, a double sha2-256 implementation, and all the
-Keccak and Skein functions).
-
 License
 =======
 
@@ -64,26 +55,16 @@ Documentation
 
 https://py-multihashing.readthedocs.io/
 
-Development
-===========
+Contributing
+============
 
-To run the all tests run::
+See our `contribution guidelines <CONTRIBUTING.rst>`_ for a development workflow and details on how to contribute.
 
-    tox
+Notes
+=====
 
-Note, to combine the coverage data from all the tox environments run:
-
-.. list-table::
-    :widths: 10 90
-    :stub-columns: 1
-
-    - - Windows
-      - ::
-
-            set PYTEST_ADDOPTS=--cov-append
-            tox
-
-    - - Other
-      - ::
-
-            PYTEST_ADDOPTS=--cov-append tox
+This module just makes working with multihashes a bit nicer. `py-multihash <//github.com/carsonfarmer/py-multihash>`_
+is only for encoding/decoding multihashes, and does not depend on other libraries. This module will depend on various
+implementations for each hash. It currently uses `hashlib` exclusively, but this will likely change as new hashing
+functions are added (we're currently missing the MurmurHash3 functions, a double sha2-256 implementation, and all the
+Keccak and Skein functions).
