@@ -83,8 +83,24 @@ def encodes():
         b'beep boop',
         'blake2s-256',
         'e0e402204542eaca484e4311def8af74b546edd7fceb49eeb3cdcfd8a4a72ed0dc81d4c0'
-        # ], [
+    ], [
         # b'beep boop',
         # 'dbl-sha2-256',
         # '56209cd9115d76945c2455b1450295b05f4edeba2e7286bc24c23e266b48faf578c0'
+        # ], [
+        b'beep boop',
+        'Skein256-256',
+        'a0e602209f9156e984df2419deda0b70ba0a1140091b1bad7631bbc8e23d32aa0223debe'
+    ], [
+        b'beep boop',
+        'Skein512-512',
+        'e0e60240949fb826dd57518665c641767e3c50b9cf1279eeea765bbc6f6bcc5f4023df54ef100b492142737b80c74843ed401a47' +
+        '5f1923e2fc35d5ce2fb4c6daee5d1d56'
+
+    ], [
+        b'beep boop',
+        'Skein1024-1024',
+        'e0e7028001789673e78a9719ce4f1555e83c6e8f060e1b0991e4e05eaa60c67bf6ff4af2b06a6a8ff640a1f1c39ecde50c77f26a' +
+        'bef689707cd97eee6b0f5313f8524085e231d90735b3338fdae938c12e79586e70db03797fdf7ebb1dd7a1d8b4db793f615436cb' +
+        'f7913518f92d0ba69de873a4d544078e40099c1bcd6e97d80479598493'
     ]]

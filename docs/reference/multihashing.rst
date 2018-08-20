@@ -3,7 +3,7 @@ multihashing
 
 .. testsetup::
 
-    from multihashing import *
+    import multihashing
 
 .. automodule:: multihashing
     :members:

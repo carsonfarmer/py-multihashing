@@ -17,6 +17,9 @@ from Crypto.Hash import SHAKE256  # type: ignore
 from Crypto.Hash import BLAKE2b  # type: ignore
 from Crypto.Hash import BLAKE2s  # type: ignore
 from Crypto.Hash import keccak  # type: ignore
+from skein import skein256
+from skein import skein512
+from skein import skein1024
 
 __version__ = '0.1.0'
 
@@ -93,6 +96,16 @@ functions = {
 
 # Add Blake2 functions (1-64 for blake2b and 1-32 for blake2s)
 for i in range(64):
-    functions[0xb201 + i] = partial(BLAKE2b.new, digest_bytes=i + 1)
-    if i < 32:
+    if i < 32:  # BLAKE2s
         functions[0xb241 + i] = partial(BLAKE2s.new, digest_bytes=i + 1)
+    # BLAKE2b
+    functions[0xb201 + i] = partial(BLAKE2b.new, digest_bytes=i + 1)
+
+# Add Skein functions (1-32 for Skein256, 1-64 for Skein512, and 1-128 for Skein1024)
+for i in range(128):
+    if i < 32:  # Skein 256
+        functions[0xb301 + i] = partial(skein256, digest_bits=(i + 1) * 8)
+    if i < 64:  # Skein 512
+        functions[0xb321 + i] = partial(skein512, digest_bits=(i + 1) * 8)
+    # Skein 1024
+    functions[0xb361 + i] = partial(skein1024, digest_bits=(i + 1) * 8)

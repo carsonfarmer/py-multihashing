@@ -49,7 +49,7 @@ setup(
         'Topic :: Utilities',
     ],
     keywords=['ipfs', 'multihash', 'multiformat', 'cryptography'],
-    install_requires=['pycryptodome', 'multihash', 'typing'],
+    install_requires=['pycryptodome', 'pyskein', 'multihash', 'typing'],
     setup_requires=["pytest-runner"],
     test_suite='tests',
     tests_require=['pytest', 'coverage']
