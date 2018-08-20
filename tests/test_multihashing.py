@@ -7,6 +7,7 @@ from binascii import hexlify
 import pytest
 
 import multihashing
+
 from .conftest import encodes
 
 
@@ -31,4 +32,3 @@ class TestDigestBytes:
         buf = b'beep boop'
         digest = multihashing.digest_bytes(buf, 'sha2-256')
         assert digest == bytes.fromhex('90ea688e275d580567325032492b597bc77221c62493e76330b85ddda191ef7c')
-

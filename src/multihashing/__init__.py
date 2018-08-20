@@ -1,24 +1,22 @@
-from typing import Union
-from typing import Optional
-from typing import Any
-
-from Crypto.Hash import MD5
-from Crypto.Hash import SHA1
-from Crypto.Hash import SHA256
-from Crypto.Hash import SHA512
-from Crypto.Hash import SHA3_512
-from Crypto.Hash import SHA3_384
-from Crypto.Hash import SHA3_256
-from Crypto.Hash import SHA3_224
-from Crypto.Hash import SHAKE128
-from Crypto.Hash import SHAKE256
-from Crypto.Hash import keccak
-from Crypto.Hash import BLAKE2b
-from Crypto.Hash import BLAKE2s
-
 from functools import partial
+from typing import Any
+from typing import Optional
+from typing import Union
 
 import multihash
+from Crypto.Hash import MD5
+from Crypto.Hash import SHA1  # type: ignore
+from Crypto.Hash import SHA3_224  # type: ignore
+from Crypto.Hash import SHA3_256  # type: ignore
+from Crypto.Hash import SHA3_384  # type: ignore
+from Crypto.Hash import SHA3_512  # type: ignore
+from Crypto.Hash import SHA256
+from Crypto.Hash import SHA512
+from Crypto.Hash import SHAKE128  # type: ignore
+from Crypto.Hash import SHAKE256  # type: ignore
+from Crypto.Hash import BLAKE2b  # type: ignore
+from Crypto.Hash import BLAKE2s  # type: ignore
+from Crypto.Hash import keccak  # type: ignore
 
 __version__ = '0.1.0'
 

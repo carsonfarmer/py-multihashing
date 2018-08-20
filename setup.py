@@ -13,7 +13,7 @@ from setuptools import setup
 
 
 def read(*names, **kwargs):
-    return io.open(join(dirname(__file__), *names),encoding=kwargs.get('encoding', 'utf8')).read()
+    return io.open(join(dirname(__file__), *names), encoding=kwargs.get('encoding', 'utf8')).read()
 
 
 setup(
@@ -49,7 +49,7 @@ setup(
         'Topic :: Utilities',
     ],
     keywords=['ipfs', 'multihash', 'multiformat', 'cryptography'],
-    install_requires=['pycryptodome', 'multihash'],
+    install_requires=['pycryptodome', 'multihash', 'typing'],
     setup_requires=["pytest-runner"],
     test_suite='tests',
     tests_require=['pytest', 'coverage']
