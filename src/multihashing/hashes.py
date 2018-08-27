@@ -11,6 +11,9 @@ import sha3
 class Hash:
 
     def __init__(self) -> None:
+        """
+        Defaults to SHA1
+        """
         self.func = hashlib.sha1()
 
     @property
