@@ -1,10 +1,10 @@
-from typing import Any
 from typing import Optional
 from typing import Union
 
 import multihash
 
-from .hashes import functions, Hash
+from .hashes import Hash
+from .hashes import functions
 
 __version__ = '0.1.0'
 
@@ -40,10 +40,7 @@ def digest_bytes(buf: bytes, func: Union[str, int], length: Optional[int] = None
 
     hashed = create_hash(func)
     hashed.update(buf)
-    try:
-        return hashed.read(length)
-    except AttributeError:
-        return hashed.digest()[:length]
+    return hashed.digest()[:length]
 
 
 def create_hash(func: Union[str, int]) -> Hash:
